@@ -1,0 +1,86 @@
+from prettytable import PrettyTable
+
+class Admin:
+    def __init__(self):
+        self.obat_obatan = []
+        self.username = "IrvanMissa45"
+        self.password = "Vannxxyy"
+
+    def buat_obat(self, nama, dosis, jadwal):
+        obat = {
+            "nama": nama,
+            "dosis": dosis,
+            "jadwal": jadwal
+        }
+        self.obat_obatan.append(obat)
+        print(f"Obat {nama} berhasil dibuat!")
+
+    def lihat_obat_obatan(self):
+        table = PrettyTable(["No", "Nama Obat", "Dosis", "Jadwal"])
+        for i, obat in enumerate(self.obat_obatan):
+            table.add_row([i+1, obat["nama"], obat["dosis"], obat["jadwal"]])
+        print(table)
+
+    def perbarui_obat(self, nama, dosis_baru, jadwal_baru):
+        for obat in self.obat_obatan:
+            if obat["nama"] == nama:
+                obat["dosis"] = dosis_baru
+                obat["jadwal"] = jadwal_baru
+                print(f"Obat {nama} berhasil diperbarui!")
+                return
+        print(f"Obat {nama} tidak ditemukan!")
+
+    def hapus_obat(self, nama):
+        for obat in self.obat_obatan:
+            if obat["nama"] == nama:
+                self.obat_obatan.remove(obat)
+                print(f"Obat {nama} berhasil dihapus!")
+                return
+        print(f"Obat {nama} tidak ditemukan!")
+
+    def login(self, username, password):
+        if username == self.username and password == self.password:
+            return True
+        else:
+            return False
+
+admin = Admin()
+
+while True:
+    print("\nSelamat Datang")
+    username = input("Masukkan username: ")
+    password = input("Masukkan password: ")
+    if admin.login(username, password):
+        print("Login berhasil!")
+        break
+    else:
+        print("Username atau password salah!")
+
+while True:
+    print("\nMenu Admin:")
+    print("1. Buat Obat")
+    print("2. Lihat Obat-Obatan")
+    print("3. Perbarui Obat")
+    print("4. Hapus Obat")
+    print("5. Keluar")
+    pilihan = input("Pilih opsi: ")
+
+    if pilihan == "1":
+        nama = input("Masukkan nama obat: ")
+        dosis = input("Masukkan dosis obat: ")
+        jadwal = input("Masukkan jadwal obat: ")
+        admin.buat_obat(nama, dosis, jadwal)
+    elif pilihan == "2":
+        admin.lihat_obat_obatan()
+    elif pilihan == "3":
+        nama = input("Masukkan nama obat: ")
+        dosis_baru = input("Masukkan dosis obat baru: ")
+        jadwal_baru = input("Masukkan jadwal obat baru: ")
+        admin.perbarui_obat(nama, dosis_baru, jadwal_baru)
+    elif pilihan == "4":
+        nama = input("Masukkan nama obat: ")
+        admin.hapus_obat(nama)
+    elif pilihan == "5":
+        break
+    else:
+        print("Opsi tidak valid!")
