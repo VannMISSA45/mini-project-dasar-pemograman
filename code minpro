@@ -1,0 +1,46 @@
+##kode pasien##
+
+from prettytable import PrettyTable
+
+class Pasien:
+    def __init__(self):
+        self.riwayat_obat = []
+        self.username = "imam"
+        self.password = "paskan"
+
+    def terima_pengingat(self, obat):
+        print(f"Pengingat: Minum {obat['nama']} - {obat['dosis']} - {obat['jadwal']}")
+
+    def lihat_riwayat_obat(self):
+        table = PrettyTable(["No", "Nama Obat", "Dosis", "Jadwal"])
+        for i, obat in enumerate(self.riwayat_obat):
+            table.add_row([i + 1, obat["nama"], obat["dosis"], obat["jadwal"]])
+        print(table)
+
+    def login(self, username, password):
+        if username == self.username and password == self.password:
+            return True
+        else:
+            return False
+
+pasien = Pasien()
+
+while True:
+    print("\nSelamat datang, silahkan login terlebih dahulu:")
+    username = input("Masukkan username: ")
+    password = input("Masukkan password: ")
+    
+    if pasien.login(username, password):
+        print("Login berhasil!")
+        break
+    else:
+        print("Username atau password salah. Silakan coba lagi.")
+
+pasien.riwayat_obat.append({"nama": "Paracetamol", "dosis": "500mg", "jadwal": "Setiap 6 jam"})
+pasien.riwayat_obat.append({"nama": "Vitamin C", "dosis": "250mg", "jadwal": "Setiap 8 jam"})
+pasien.riwayat_obat.append({"nama": "Caviplex", "dosis": "200mg", "jadwal": "Setiap 8 jam"})
+
+pasien.lihat_riwayat_obat()
+
+for obat in pasien.riwayat_obat:
+    pasien.terima_pengingat(obat)
